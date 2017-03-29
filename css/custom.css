@@ -1,0 +1,10 @@
+.stumble-frame{
+	position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    outline: 0;
+    height: 100%;
+    min-width: 100%;
+    width: 0px;
+}
