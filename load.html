@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Load</title>
+</head>
+<body>
+
+<iframe style="width:100%;height:100%;overflow:auto" name="myiframe" id="myiframe" onLoad="injectJS()" src="hello.html">IFrame is not supported</iframe>
+
+</body>
+<script>
+	function injectJS() {
+        var iFrameHead = window.frames["myiframe"].document.getElementsByTagName("p")[0].innerHTML; 
+        console.log(iFrameHead);        
+        
+}
+</script>
+</html>
