@@ -1,22 +1,22 @@
 'use strict'
 var web_contents = [{
     "id": "1",
-    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
+    "page_url": "https://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
 }, {
     "id": "2",
-    "page_url": "http://www.archanaskitchen.com/kerala-chicken-curry-recipe"
+    "page_url": "https://www.archanaskitchen.com/kerala-chicken-curry-recipe"
 }, {
     "id": "3",
-    "page_url": "http://www.archanaskitchen.com/maa-inji-recipe-mango-ginger-pickle"
+    "page_url": "https://www.archanaskitchen.com/maa-inji-recipe-mango-ginger-pickle"
 }, {
     "id": "4",
-    "page_url": "http://www.archanaskitchen.com/khatta-meetha-pahari-kaddu-recipe"
+    "page_url": "https://www.archanaskitchen.com/khatta-meetha-pahari-kaddu-recipe"
 }, {
     "id": "5",
-    "page_url": "http://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"
+    "page_url": "https://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"
 }, {
     "id": "6",
-    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
+    "page_url": "https://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
 }];
 
 let iframeContent = null;
