@@ -26,47 +26,54 @@ function randomUrl() {
     console.log(ran_content.id);
     return ran_content.page_url;
 }
-$(document).ready(function() {
+
+$(document).ready(function () {
     console.log('loaded');
     var page_src = randomUrl();
-    $('#stumble-frame').attr('src', page_src);
-//    var stumbleFrame = $('#stumble-frame');
-
-// 	var script   = document.createElement("script");
-// 		script.type  = "text/javascript";
-// 		script.text   = "var x = document.getElementsByClassName('.ingredientstitle');console.log('x data',x);"; 
-// $('#stumble-frame').append(script);
-   // $('#stumble-frame').attr('srcdoc', "<html><body><script>console.log('im from iframe');</script></body></html>");
-   
+    $('#redirect').attr('href', page_src);
+    loadUrlToFrame(page_src);
 });
 
-$('#stumble-frame').load(function(){
-	console.log('page loaded...');
-        var myIframe  = document.getElementById('stumble-frame');   
-         var myscript =  myIframe.contentWindow.document.createElement("script");
-         myscript.type = 'text/javascript';
-         myscript.text = "console.log('Hello from frame!!!!!!!')"; 
-         myIframe.appendChild(myscript);
 
- });
+function loadUrlToFrame(page_src){
+      $.ajax({
+        url: page_src,
+        type: "get",
+        dataType: "html",
+        success: function (data) {
+            var ingredata = $(data).find('.ingredientstitle').next().text();
+            console.log(ingredata);
+            /*loaded from html
+            var iframe = document.getElementById('stumble-frame');
+            var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframedoc.body.innerHTML = data;*/
+             $('#stumble-frame').attr('src', page_src);
+        },
+        error: function (data) {
+            console.log('Error while fetching data');
+        }
+    })
+}
 
-$('#load_home').click(function() {
+$('#stumble-frame').load(function () {
+   console.log('iframe loaded successfully');
+});
+
+$('#load_home').click(function () {
     var page_src = randomUrl();
     $('#stumble-frame').attr('src', page_src);
-   
 });
 
 //Ingredients scroll
-
-$('#navIng').click(function() {
+$('#navIng').click(function () {
     $('.ingredientstitle').animate({
         scrollTop: $("#navIng").offset().top
     }, 2000);
 });
 
 //ingredients to scroll
-$('#navIng').click(function(e) {
-	console.log('clicked')
+$('#navIng').click(function (e) {
+    console.log('clicked')
     e.preventDefault();
     scrollByClass('.ingredientstitle');
 });
@@ -80,25 +87,3 @@ function scrollByClass(x) {
     });
 }
 
-
-  // window.addEventListener( "message",
-  //         function (e) {
-  //         	console.log('message')
-  //               if(e.origin !== "http://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"){ 
-  //               	console.log('EE',e);
-  //               	console.log('Dataaa',e.data);
-  //               	return; 
-  //               } 
-                
-  //         },
-  //         false);
-
-
-// iframe = $('<iframe>');
-
-// var script   = document.createElement("script");
-// script.type  = "text/javascript";
-// script.text  = "var x = document.getElementsByClassName('.ingredientstitle');console.log('x data',x)";
-
-// iframe[0].appendChild(script);
-// iframe.appendTo('#stumble-frame');
