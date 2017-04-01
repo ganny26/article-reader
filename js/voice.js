@@ -1,6 +1,6 @@
   $(function(){
     if ('speechSynthesis' in window) {
-      speechSynthesis.onvoiceschanged = function() {
+        .onvoiceschanged = function() {
         var $voicelist = $('#voices');
 
         if($voicelist.find('option').length == 0) {

@@ -19,6 +19,8 @@ var web_contents = [{
     "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
 }];
 
+let iframeContent = null ;
+let ingredents = null;
 function randomUrl() {
     var ran_key = Math.floor(Math.random() * web_contents.length);
     var ran_content = web_contents[ran_key];
@@ -41,7 +43,9 @@ function loadUrlToFrame(page_src){
         type: "get",
         dataType: "html",
         success: function (data) {
+            iframeContent = data;
             var ingredata = $(data).find('.ingredientstitle').next().text();
+            ingredents = ingredata;
             console.log(ingredata);
             /*loaded from html
             var iframe = document.getElementById('stumble-frame');
@@ -61,7 +65,7 @@ $('#stumble-frame').load(function () {
 
 $('#load_home').click(function () {
     var page_src = randomUrl();
-    $('#stumble-frame').attr('src', page_src);
+    loadUrlToFrame(page_src);
 });
 
 //Ingredients scroll
@@ -75,7 +79,7 @@ $('#navIng').click(function () {
 $('#navIng').click(function (e) {
     console.log('clicked')
     e.preventDefault();
-    scrollByClass('.ingredientstitle');
+    $("#stumble-frame").contents().scrollTop( $("#stumble-frame").contents().scrollTop() + 1000 );
 });
 
 //velocity js
@@ -87,3 +91,33 @@ function scrollByClass(x) {
     });
 }
 
+$('#readContent').click(function(e){
+    e.preventDefault();
+    speak(ingredents.replace(/\s/g,''));
+})
+
+function getVoices(){
+  	var voices = speechSynthesis.getVoices();
+    return voices[3];
+}
+
+function speak(text) {
+    console.log('speaking');
+	var msg = new SpeechSynthesisUtterance();
+	msg.text = text;
+  
+  // Set the attributes.
+	msg.volume = parseFloat(1);
+	msg.rate = parseFloat(1);
+	msg.pitch = parseFloat(1);
+
+  
+  // If a voice has been selected, find the voice and set the
+  // utterance instance's voice attribute.
+	
+		msg.voice = getVoices();
+	
+  
+  // Queue this utterance.
+	window.speechSynthesis.speak(msg);
+}
