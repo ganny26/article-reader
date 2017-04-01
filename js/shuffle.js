@@ -42,12 +42,11 @@ $(document).ready(function() {
 
 $('#stumble-frame').load(function(){
 	console.log('page loaded...');
-
-        // var iFrameHead = window.frames["stumble-frame"].document.getElementsByTagName("head")[0];         
-        // var myscript = document.createElement('script');
-        // myscript.type = 'text/javascript';
-        // myscript.src = "var x = document.getElementsByClassName('.ingredientstitle');console.log('x data',x)"; 
-        // iFrameHead.appendChild(myscript);
+        var myIframe  = document.getElementById('stumble-frame');   
+         var myscript =  myIframe.contentWindow.document.createElement("script");
+         myscript.type = 'text/javascript';
+         myscript.text = "console.log('Hello from frame!!!!!!!')"; 
+         myIframe.appendChild(myscript);
 
  });
 
