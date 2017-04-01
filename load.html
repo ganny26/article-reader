@@ -8,11 +8,12 @@
 <iframe style="width:100%;height:100%;overflow:auto" name="myiframe" id="myiframe" onLoad="injectJS()" src="hello.html">IFrame is not supported</iframe>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
 	function injectJS() {
-        var iFrameHead = window.frames["myiframe"].document.getElementsByTagName("p")[0].innerHTML; 
-        console.log(iFrameHead);        
-        
+       	console.log('page loaded...');
+    var contents = $('#myiframe').contents().find('head').html();
+    console.log(contents);
 }
 </script>
 </html>

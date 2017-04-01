@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>#{title}</title>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
 <style type="text/css">
@@ -19,6 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#" id="navIng">Ingredients</a></li>
               <li><a href="#" id="method">Method</a></li>
+              <li><a id="redirect" target="_blank">Read Directions</a></li>
             </ul>
           </div><!--/.nav-collapse -->
   </div><!-- /.container-fluid -->
@@ -26,7 +27,7 @@
 <body>
 <div>
 	<button id="load_home">Get Random Stuff!</button><br/>
-	<iframe  id="stumble-frame" style="border: 0;height: 100%;width: 0px;min-width: 100%;position:absolute;">Browser not compatible</iframe>
+	<iframe  id="stumble-frame" sandbox="allow-forms allow-scripts allow-popups allow-same-origin" style="border: 0;height: 100%;width: 0px;min-width: 100%;position:absolute;">Browser not compatible</iframe>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
