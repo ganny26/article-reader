@@ -1,26 +1,28 @@
 'use strict'
 var web_contents = [{
     "id": "1",
-    "page_url": "https://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
+    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
 }, {
     "id": "2",
-    "page_url": "https://www.archanaskitchen.com/kerala-chicken-curry-recipe"
+    "page_url": "http://www.archanaskitchen.com/kerala-chicken-curry-recipe"
 }, {
     "id": "3",
-    "page_url": "https://www.archanaskitchen.com/maa-inji-recipe-mango-ginger-pickle"
+    "page_url": "http://www.archanaskitchen.com/maa-inji-recipe-mango-ginger-pickle"
 }, {
     "id": "4",
-    "page_url": "https://www.archanaskitchen.com/khatta-meetha-pahari-kaddu-recipe"
+    "page_url": "http://www.archanaskitchen.com/khatta-meetha-pahari-kaddu-recipe"
 }, {
     "id": "5",
-    "page_url": "https://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"
+    "page_url": "http://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"
 }, {
     "id": "6",
-    "page_url": "https://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
+    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
 }];
 
 let iframeContent = null;
 let ingredents = null;
+var uttranceArticle = new SpeechSynthesisUtterance();
+var synth = window.speechSynthesis;
 function randomUrl() {
     var ran_key = Math.floor(Math.random() * web_contents.length);
     var ran_content = web_contents[ran_key];
@@ -30,7 +32,10 @@ function randomUrl() {
 }
 
 $(document).ready(function () {
+    
     console.log('loaded');
+    //hide player
+  
     //tool tip initialization
     $('[data-toggle="tooltip"]').tooltip();
     var page_src = randomUrl();
@@ -38,6 +43,20 @@ $(document).ready(function () {
     loadUrlToFrame(page_src);
 });
 
+function speechPause(){
+    console.log('Paused');
+    synth.pause();
+};
+
+function speechStop(){
+    console.log('Stopped');
+    synth.cancel();
+};
+
+function speechResume(){
+    console.log('Resume');
+    synth.resume();
+}
 
 function loadUrlToFrame(page_src) {
     $.ajax({
@@ -53,6 +72,7 @@ function loadUrlToFrame(page_src) {
             var iframe = document.getElementById('stumble-frame');
             var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
             iframedoc.body.innerHTML = data;*/
+              $('.read-icon').hide();
             $('#stumble-frame').attr('src', page_src);
         },
         error: function (data) {
@@ -61,25 +81,6 @@ function loadUrlToFrame(page_src) {
     })
 }
 
-function respondToSizingMessage(e) {
-   
-        if (e.origin == 'http://localhost:8011') { // e.data is the string sent by the origin with postMessage. 
-            if (e.data == 'sizing?') {
-                e.source.postMessage('sizing:' + document.body.scrollHeight + ',' + document.body.scrollWidth, e.origin);
-            }
-        }
-     // we have to listen for 'message' window.addEventListener('message', respondToSizingMessage, false); 
-}
-
-function handleSizingResponse(e) {
-    if (e.origin == 'http://www.archanaskitchen.com') {
-        var action = e.data.split(':')[0]
-        if (action == 'sizing')
-        { resizeCanvas(e.data.split(':')[1]); }
-        else
-        { console.log("Unknown message: " + e.data); }
-    }
-}
 
 
 //on frame load
@@ -108,6 +109,7 @@ $('#navIng').click(function () {
 $('#navIng').click(function (e) {
     console.log('clicked')
     e.preventDefault();
+    speak(ingredents.replace(/\s/g, ''));
     $('#stumble-frame').scrollTop(438);
    // $("#stumble-frame").contents().scrollTop($("#stumble-frame").contents().scrollTop() + 1000);
 });
@@ -123,7 +125,19 @@ function scrollByClass(x) {
 
 $('#readContent').click(function (e) {
     e.preventDefault();
-    speak(ingredents.replace(/\s/g, ''));
+    speechResume();
+    //speak(ingredents.replace(/\s/g, ''));
+})
+
+$('#pauseContent').click(function (e) {
+    e.preventDefault();
+   speechPause();
+    //speak(ingredents.replace(/\s/g, ''));
+})
+
+$('#stopContent').click(function(e){
+      e.preventDefault();
+speechStop();
 })
 
 function getVoices() {
@@ -131,23 +145,26 @@ function getVoices() {
     return voices[3];
 }
 
+$(document).on('pageload',function(e){
+      $('.read-icon').hide();
+})
+
+function setSpeechConfiguration(){
+     // Set the attributes.
+    uttranceArticle.volume = parseFloat(1);
+    uttranceArticle.rate = parseFloat(3);
+    uttranceArticle.pitch = parseFloat(1);
+}
+
 function speak(text) {
     console.log('speaking');
-    var msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-
-    // Set the attributes.
-    msg.volume = parseFloat(1);
-    msg.rate = parseFloat(1);
-    msg.pitch = parseFloat(1);
-
-
+    setSpeechConfiguration();
+    uttranceArticle.text = text;
     // If a voice has been selected, find the voice and set the
     // utterance instance's voice attribute.
 
-    msg.voice = getVoices();
-
+    uttranceArticle.voice = getVoices();
 
     // Queue this utterance.
-    window.speechSynthesis.speak(msg);
+    synth.speak(uttranceArticle);
 }
