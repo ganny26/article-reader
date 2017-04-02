@@ -94,6 +94,7 @@ $('#stumble-frame').load(function () {
 });
 
 $('#load_home').click(function () {
+    $('.loading-icon').show();
     var page_src = randomUrl();
     loadUrlToFrame(page_src);
 });
