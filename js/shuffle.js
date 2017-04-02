@@ -21,6 +21,9 @@ var web_contents = [{
 
 let iframeContent = null;
 let ingredents = null;
+let methods = null;
+var uttranceArticle = new SpeechSynthesisUtterance();
+var synth = window.speechSynthesis;
 function randomUrl() {
     var ran_key = Math.floor(Math.random() * web_contents.length);
     var ran_content = web_contents[ran_key];
@@ -31,6 +34,8 @@ function randomUrl() {
 
 $(document).ready(function () {
     console.log('loaded');
+    //hide player
+    $('.read-icon').hide();
     //tool tip initialization
     $('[data-toggle="tooltip"]').tooltip();
     var page_src = randomUrl();
@@ -38,6 +43,20 @@ $(document).ready(function () {
     loadUrlToFrame(page_src);
 });
 
+function speechPause() {
+    console.log('Paused');
+    synth.pause();
+};
+
+function speechStop() {
+    console.log('Stopped');
+    synth.cancel();
+};
+
+function speechResume() {
+    console.log('Resume');
+    synth.resume();
+}
 
 function loadUrlToFrame(page_src) {
     $.ajax({
@@ -47,12 +66,16 @@ function loadUrlToFrame(page_src) {
         success: function (data) {
             iframeContent = data;
             var ingredata = $(data).find('.ingredientstitle').next().text();
+            var methoddata = $(data).find('.recipeinstructionstitle').next().text();
             ingredents = ingredata;
+            methods = methoddata;
             console.log(ingredata);
+            console.log(methoddata);
             /*loaded from html
             var iframe = document.getElementById('stumble-frame');
             var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
             iframedoc.body.innerHTML = data;*/
+
             $('#stumble-frame').attr('src', page_src);
         },
         error: function (data) {
@@ -61,35 +84,13 @@ function loadUrlToFrame(page_src) {
     })
 }
 
-function respondToSizingMessage(e) {
-   
-        if (e.origin == 'http://localhost:8011') { // e.data is the string sent by the origin with postMessage. 
-            if (e.data == 'sizing?') {
-                e.source.postMessage('sizing:' + document.body.scrollHeight + ',' + document.body.scrollWidth, e.origin);
-            }
-        }
-     // we have to listen for 'message' window.addEventListener('message', respondToSizingMessage, false); 
-}
-
-function handleSizingResponse(e) {
-    if (e.origin == 'http://www.archanaskitchen.com') {
-        var action = e.data.split(':')[0]
-        if (action == 'sizing')
-        { resizeCanvas(e.data.split(':')[1]); }
-        else
-        { console.log("Unknown message: " + e.data); }
-    }
-}
 
 
 //on frame load
 $('#stumble-frame').load(function () {
-  //  $('#stumble-frame').hide();
+    //  $('#stumble-frame').hide();
     console.log('iframe loaded successfully');
-    var iframe = document.getElementById('stumble-frame'); 
-    iframe.contentWindow.postMessage('sizing?', 'http://www.archanaskitchen.com'); 
-    
-   window.addEventListener('message', handleSizingResponse, false);
+    $('.loading-icon').hide();
 });
 
 $('#load_home').click(function () {
@@ -106,11 +107,24 @@ $('#navIng').click(function () {
 
 //ingredients to scroll
 $('#navIng').click(function (e) {
-    console.log('clicked')
+    console.log('reading ingredients');
     e.preventDefault();
-    $('#stumble-frame').scrollTop(438);
-   // $("#stumble-frame").contents().scrollTop($("#stumble-frame").contents().scrollTop() + 1000);
+    //show player
+    $('.read-icon').show();
+    speak(ingredents.replace(/\s/g, ''));
+
 });
+
+//methods to scroll
+$('#method').click(function (e) {
+    console.log('reading methods');
+    e.preventDefault();
+    //show player
+    $('.read-icon').show();
+    speak(methods.replace(/\s/g, ''));
+
+});
+
 
 //velocity js
 function scrollByClass(x) {
@@ -123,7 +137,20 @@ function scrollByClass(x) {
 
 $('#readContent').click(function (e) {
     e.preventDefault();
-    speak(ingredents.replace(/\s/g, ''));
+    speechResume();
+    //speak(ingredents.replace(/\s/g, ''));
+})
+
+$('#pauseContent').click(function (e) {
+    e.preventDefault();
+    speechPause();
+    //speak(ingredents.replace(/\s/g, ''));
+})
+
+$('#stopContent').click(function (e) {
+    e.preventDefault();
+    $('.read-icon').hide();
+    speechStop();
 })
 
 function getVoices() {
@@ -131,23 +158,29 @@ function getVoices() {
     return voices[3];
 }
 
+
+function setSpeechConfiguration() {
+    // Set the attributes.
+    uttranceArticle.volume = parseFloat(1);
+    uttranceArticle.rate = parseFloat(3);
+    uttranceArticle.pitch = parseFloat(1);
+}
+
 function speak(text) {
     console.log('speaking');
-    var msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-
-    // Set the attributes.
-    msg.volume = parseFloat(1);
-    msg.rate = parseFloat(1);
-    msg.pitch = parseFloat(1);
-
-
+    uttranceArticle.volume = parseFloat(1);
+    uttranceArticle.rate = parseFloat(3);
+    uttranceArticle.pitch = parseFloat(1)
+    uttranceArticle.text = text;
     // If a voice has been selected, find the voice and set the
     // utterance instance's voice attribute.
 
-    msg.voice = getVoices();
+    uttranceArticle.voice = getVoices();
 
+    uttranceArticle.onend = function (e) {
+        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+    };
 
     // Queue this utterance.
-    window.speechSynthesis.speak(msg);
+    synth.speak(uttranceArticle);
 }

@@ -1,68 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Article Reader</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.1/css/materialize.min.css">
-    </head>
-    <body>
+<html>
+
+<head>
+  <title>Article Reader</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
-<div class="container">
-  <div class="row">
-    <nav>
-      <div class="nav-wrapper">
-        <div class="col s12">
-          <a href="#" class="brand-logo">Article Reader</a>
-        </div>
-      </div>
-    </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+      <a class="navbar-brand" href="#">Article Reader</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="read-icon">
+            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Read" id="readContent"><i class="fa fa-play fa-2x" aria-hidden="true"></i></a>
+            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pause" id="pauseContent"><i class="fa  fa-pause fa-2x" aria-hidden="true"></i></a>
+            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Stop" id="stopContent"> <i class="fa fa-stop fa-2x" aria-hidden="true"></i></a>
+          </div>
+        </li>
+
+
+
+        <!--<li><a href="#" id="readContent">Read</a></li>-->
+        <li><a href="#" id="load_home">Random</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Read<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="navIng">Ingredients</a></li>
+            <li><a href="#" id="method">Method</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
   </div>
-  <form class="col s8 offset-s2">
-    <div class="row">
-      <label>Choose voice</label>
-      <select id="voices"></select>
-    </div>
-    <div class="row">
-      <div class="col s6">
-        <label>Rate</label>
-        <p class="range-field">
-          <input type="range" id="rate" min="1" max="100" value="10" />
-        </p>
-      </div>
-      <div class="col s6">
-        <label>Pitch</label>
-        <p class="range-field">
-          <input type="range" id="pitch" min="0" max="2" value="1" />
-        </p>
-      </div>
-     
-    </div>
-    <div id="content">
-      Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="message" class="materialize-textarea"></textarea>
-        <label>Write message</label>
-      </div>
-    </div>
-    <a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
-  </form>  
-</div>
+  <!-- /.container-fluid -->
+</nav>
 
-<div id="modal1" class="modal">
-  <h4>Speech Synthesis not supported</h4>
-  <p>Your browser does not support speech synthesis.</p>
-  <p>We recommend you use Google Chrome.</p>
-  <div class="action-bar">
-    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
+<body>
+  <div class="loading-icon">
+    <img src="img/spinner.gif" width="50px" height="50px">
+    <!--<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>-->
+    <span class="sr-only">Loading...</span>
   </div>
-</div>
+  <div>
+    <!--<button id="load_home">Get Random Stuff!</button><br/>-->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.1/js/materialize.min.js"></script>
-<script src="js/voice.js"></script>
-    </body>
+    <iframe id="stumble-frame" sandbox="allow-forms allow-scripts allow-popups allow-same-origin" style="border: 0;height: 100%;width: 0px;min-width: 100%;position:absolute;">Browser not compatible</iframe>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+  <script src="js/shuffle.js"></script>
+
+</body>
+
 </html>
