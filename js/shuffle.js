@@ -22,8 +22,9 @@ var web_contents = [{
 let iframeContent = null;
 let ingredents = null;
 let methods = null;
-var uttranceArticle = new SpeechSynthesisUtterance();
-var synth = window.speechSynthesis;
+// var uttranceArticle = new SpeechSynthesisUtterance();
+// var synth = window.speechSynthesis;
+var articleUrl = null;
 function randomUrl() {
     var ran_key = Math.floor(Math.random() * web_contents.length);
     var ran_content = web_contents[ran_key];
@@ -38,24 +39,38 @@ $(document).ready(function () {
     $('.read-icon').hide();
     //tool tip initialization
     $('[data-toggle="tooltip"]').tooltip();
-    var page_src = randomUrl();
+    articleUrl = getParameterByName('articleurl');
+    console.log('Article url', articleUrl);
+    var page_src = articleUrl;
     $('#redirect').attr('href', page_src);
     loadUrlToFrame(page_src);
 });
 
+function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 function speechPause() {
     console.log('Paused');
-    synth.pause();
+    speechSynthesis.pause();
 };
 
 function speechStop() {
     console.log('Stopped');
-    synth.cancel();
+    speechSynthesis.cancel();
 };
 
 function speechResume() {
     console.log('Resume');
-    synth.resume();
+    speechSynthesis.resume();
 }
 
 function loadUrlToFrame(page_src) {
@@ -106,6 +121,7 @@ $('#navIng').click(function () {
     }, 2000);
 });
 
+
 //ingredients to scroll
 $('#navIng').click(function (e) {
     console.log('reading ingredients');
@@ -138,7 +154,21 @@ function scrollByClass(x) {
 
 $('#readContent').click(function (e) {
     e.preventDefault();
-    speechResume();
+    var state = $(this).attr('data-mode');
+    console.log(state);
+    if (state === 'play') {
+        $(this).find('i').removeClass();
+        $(this).find('i').addClass('fa fa-play fa-2x');
+        $(this).attr('data-mode', 'pause');
+        speechPause();
+    } else {
+        $(this).find('i').removeClass();
+        $(this).find('i').addClass('fa fa-pause fa-2x');
+        $(this).attr('data-mode', 'play');
+        speechResume();
+    }
+
+
     //speak(ingredents.replace(/\s/g, ''));
 })
 
@@ -168,9 +198,10 @@ function setSpeechConfiguration() {
 }
 
 function speak(text) {
+    var uttranceArticle = new SpeechSynthesisUtterance();
     console.log('speaking');
     uttranceArticle.volume = parseFloat(1);
-    uttranceArticle.rate = parseFloat(3);
+    uttranceArticle.rate = parseFloat(0.7);
     uttranceArticle.pitch = parseFloat(1)
     uttranceArticle.text = text;
     // If a voice has been selected, find the voice and set the
@@ -179,9 +210,14 @@ function speak(text) {
     uttranceArticle.voice = getVoices();
 
     uttranceArticle.onend = function (e) {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        console.log('Finished in ' + e.elapsedTime + ' seconds.');
+        speechSynthesis.cancel();
+        $('#readContent').find('i').removeClass();
+        $('#readContent').find('i').addClass('fa fa-play fa-2x');
+        $('#readContent').attr('data-mode', 'play');
+
     };
 
     // Queue this utterance.
-    synth.speak(uttranceArticle);
+    speechSynthesis.speak(uttranceArticle);
 }
