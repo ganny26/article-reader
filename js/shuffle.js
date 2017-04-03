@@ -1,7 +1,7 @@
 'use strict'
-let iframeContent = null;
-let ingredents = null;
-let methods = null;
+var iframeContent = null;
+var ingredents = null;
+var methods = null;
 // var uttranceArticle = new SpeechSynthesisUtterance();
 // var synth = window.speechSynthesis;
 var articleUrl = null;
