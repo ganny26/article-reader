@@ -1,24 +1,4 @@
 'use strict'
-var web_contents = [{
-    "id": "1",
-    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
-}, {
-    "id": "2",
-    "page_url": "http://www.archanaskitchen.com/kerala-chicken-curry-recipe"
-}, {
-    "id": "3",
-    "page_url": "http://www.archanaskitchen.com/maa-inji-recipe-mango-ginger-pickle"
-}, {
-    "id": "4",
-    "page_url": "http://www.archanaskitchen.com/khatta-meetha-pahari-kaddu-recipe"
-}, {
-    "id": "5",
-    "page_url": "http://www.archanaskitchen.com/no-bake-white-chocolate-cheesecake-recipe"
-}, {
-    "id": "6",
-    "page_url": "http://www.archanaskitchen.com/mangalorean-style-bella-metthe-dosa-recipe-jaggery-fenugreek-seed-pancakes-recipe"
-}];
-
 let iframeContent = null;
 let ingredents = null;
 let methods = null;
@@ -46,6 +26,7 @@ $(document).ready(function () {
     loadUrlToFrame(page_src);
 });
 
+// fetch url from query param
 function getParameterByName(name, url) {
     if (!url) {
         url = window.location.href;
@@ -84,7 +65,7 @@ function loadUrlToFrame(page_src) {
             var methoddata = $(data).find('.recipeinstructionstitle').next().text();
             ingredents = ingredata;
             methods = methoddata;
-            console.log(ingredata);
+            console.log(ingredata.replace(/\s/g, ''));
             console.log(methoddata);
             /*loaded from html
             var iframe = document.getElementById('stumble-frame');
