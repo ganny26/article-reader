@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/frame.css">
+
+</head>
+
+<body>
+	<!--<iframe id="frame1" name="frame1">Browser not compatible</iframe>-->
+	<iframe id="frame2" name="frame2">Browser not compatible</iframe>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			
+			$('#frame1').attr('src', 'http://www.sanjeevkapoor.com/Recipe/Chocolate-Tea-Cake.html');
+			loadUrlToFrame('http://www.sanjeevkapoor.com/Recipe/Chocolate-Tea-Cake.html');
+		});
+		function loadUrlToFrame(page_src) {
+    $.ajax({
+        url: page_src,
+        type: "get",
+        dataType: "html",
+        success: function (data) {
+            iframeContent = data;
+      
+            /*loaded from html*/
+            var iframe = document.getElementById('frame2');
+            var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframedoc.body.innerHTML = data;
+            
+        },
+        error: function (data) {
+            console.log('Error while fetching data');
+        }
+    })
+}
+
+	</script>
+
+</body>
+
+</html>
