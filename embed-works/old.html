@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sample</title>
+     <!--<link rel="import" href="archana.html">-->
+</head>
+
+<body>
+    <style>
+        #frame1 {
+            border: 0;
+            height: 100%;
+            width: 0px;
+            min-width: 100%;
+            position: absolute;
+        }
+        
+    </style>
+</body>
+<button id="fetchData">Fetch</button></br>
+<object data="archana.html" id="object1" type="text/html">
+    Alternative Content
+</object>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!--<script>
+    $('#btnLoad').click(function (e) {
+        console.log('clicked', e.currentTarget.id);
+        var url = $('#frameUrl').val();
+        loadUrlToFrame(url);
+    })
+
+
+    function loadUrlToFrame(page_src) {
+        $.ajax({
+            url: page_src,
+            type: "get",
+            dataType: "html",
+            success: function (data) {
+
+                loadByAjax(data);
+            },
+            error: function (xhr, statusText, err) {
+                console.log(statusText);
+                if (statusText === 'error') {
+                    loadWithoutAjax(this.url)
+                }
+            }
+        })
+    }
+
+    function loadByAjax(data) {
+      
+            var iframe = document.getElementById('frame1');
+          //  iframe.contentWindow.location.reload(true)
+            iframeContent = data;
+
+            // iframe.contentWindow.location.reload(true)
+            var iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframedoc.body.innerHTML = data;
+        
+    }
+
+    function loadWithoutAjax(data) {
+        var iframe = document.getElementById('frame1');
+        iframe.contentWindow.location.reload(true);
+        $("#frame1").attr("src", data);
+    }
+
+</script>-->
+
+</html>
