@@ -8,9 +8,21 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
+  "background": {
+   
+    "scripts": ["background.js"]
+  },
+  "icons":{
+    "128":"icon.png"
+  },
+  "content_scripts":[{
+    "matches":["http://*/*","https://*/*"],
+    "js":["jquery.js","popup.js"]
+  }],
+  
   
   "permissions": [
-    "activeTab",
-    "https://ajax.googleapis.com/"
-  ]
+    "<all_urls>"
+  ],
+  "content_security_policy":"script-src 'self' 'unsafe-eval' https://en.wikipedia.org/; object-src 'self'"
 }
