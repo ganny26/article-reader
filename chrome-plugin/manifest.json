@@ -3,13 +3,11 @@
   "name": "wa2doo",
   "description": "Extension for wa2doo kitchen",
   "version": "1.0",
-
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "background": {
-   
     "scripts": ["background.js"]
   },
   "icons":{
@@ -18,12 +16,15 @@
   "content_scripts":[{
     "matches":["http://*/*","https://*/*"],
     "css":["style.css"],
-    "js":["jquery.js","popup.js","myscript.js"]
+    "js":["jquery.js","popup.js","myscript.js","app.js"]
   }],
-  
-  
+  "web_accessible_resources":[
+    "toolbar.html",
+    "style.css",
+    "app.js"
+  ],
   "permissions": [
-    "<all_urls>"
+    "<all_urls>","tts","tabs"
   ],
   "content_security_policy":"script-src 'self' 'unsafe-eval' https://en.wikipedia.org/; object-src 'self'"
 }
