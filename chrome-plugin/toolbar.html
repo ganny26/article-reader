@@ -4,6 +4,7 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -14,7 +15,57 @@
 </style>
 
 <body>
-    <h3>Welcome to my chrome plugin</h3>
-    <button id="read" onclick="myFunction()">Read</button>
+    <!--<h3>Welcome to my chrome plugin</h3>
+    <button id="read">Read</button>
+    <script>
+        var x = document.getElementById('read');
+        x.innerText;
+    </script>-->\
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+                <a class="navbar-brand" href="#">Article Reader</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="read-icon">
+                            <a href="#" data-toggle="tooltip" data-mode="play" data-placement="bottom" title="Read" id="readContent">
+                                <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
+                            </a>
+                            <!-- <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pause" id="pauseContent"><i class="fa  fa-pause fa-2x" aria-hidden="true"></i></a>-->
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Stop" id="stopContent">
+                                <i class="fa fa-stop fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+
+
+
+                    <!--<li><a href="#" id="readContent">Read</a></li>-->
+                    <!--<li><a href="#" id="load_home">Random</a></li>-->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Read<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="navIng">Ingredients</a></li>
+                            <li><a href="#" id="method">Method</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
+
 </html>
