@@ -4,6 +4,7 @@ var ingredents = null;
 var methods = null;
 // var uttranceArticle = new SpeechSynthesisUtterance();
 // var synth = window.speechSynthesis;
+var PLAYSTORE_URL = "https://play.google.com/store/apps/details?id=com.twitter.android&hl=en";
 var articleUrl = null;
 function randomUrl() {
     var ran_key = Math.floor(Math.random() * web_contents.length);
@@ -24,6 +25,7 @@ $(document).ready(function () {
     var page_src = articleUrl;
     $('#redirect').attr('href', page_src);
     loadUrlToFrame(page_src);
+    openAppUrl(page_src);
 });
 
 // fetch url from query param
@@ -75,12 +77,26 @@ function loadUrlToFrame(page_src) {
             $('#stumble-frame').attr('src', page_src);
         },
         error: function (data) {
+            loadIFrame(this.url);
             console.log('Error while fetching data');
+            
         }
     })
 }
 
 
+function loadIFrame(page_src){
+    console.log(page_src);
+    $('#stumble-frame').attr('src', page_src);
+}
+
+function openAppUrl(page_src){
+
+    var sUrl = "intent://scan/#Intent;scheme=recipereader;package=com.wa2do.wa2cook;S.url=" + page_src + ";end";
+   // var fallBackUrl =  "intent://scan/#Intent;scheme=recipereader;package=com.wa2do.wa2cook;S.browser_fallback_url=" + PLAYSTORE_URL + ";end";
+    $('#open-app').attr('href',sUrl);
+    //$('#open-app').attr('href',fallBackUrl);
+}
 
 //on frame load
 $('#stumble-frame').load(function () {
@@ -96,11 +112,11 @@ $('#load_home').click(function () {
 });
 
 //Ingredients scroll
-$('#navIng').click(function () {
+/*$('#navIng').click(function () {
     $('.ingredientstitle').animate({
         scrollTop: $("#navIng").offset().top
     }, 2000);
-});
+});*/
 
 
 //ingredients to scroll
@@ -187,8 +203,9 @@ function speak(text) {
     uttranceArticle.text = text;
     // If a voice has been selected, find the voice and set the
     // utterance instance's voice attribute.
-
-    uttranceArticle.voice = getVoices();
+ console.log('speaking');
+    uttranceArticle.vo2ice = getVoices();
+     console.log('speaking3');
 
     uttranceArticle.onend = function (e) {
         console.log('Finished in ' + e.elapsedTime + ' seconds.');
