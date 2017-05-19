@@ -2,17 +2,24 @@
 <html>
 
 <head>
-  <title>Article Reader</title>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/custom.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-  <link rel="manifest" href="favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
+ <title>Article Reader</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+<link rel="stylesheet" type="text/css" href="css/social-share-kit.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+<link rel="manifest" href="favicon/manifest.json">
+<meta property="og:title" content="wa2cook" />
+<meta property="og:image" content="http://wa2do.co/wa2cook/" />
+<meta property="og:site_name" content="wa2cook" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Article Reader Web Application for wa2cook">
+
 </head>
 
 
@@ -53,6 +60,10 @@
             <li><a href="#" id="method">Method</a></li>
           </ul>
         </li>
+      <!--  <li><a href="https://play.google.com/store/apps/details?id=com.twitter.android&hl=en">Open in app</a></li>
+-->
+         <li> <a id="open-app">Open in app</a></li>
+
 
       </ul>
     </div>
@@ -62,13 +73,19 @@
 </nav>
 
 <body>
+
   <div class="loading-icon">
     <img src="img/spinner.gif" width="50px" height="50px">
     <!--<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>-->
     <span class="sr-only">Loading...</span>
   </div>
-  <div>
+  <div class="container-fluid">
     <!--<button id="load_home">Get Random Stuff!</button><br/>-->
+    <div class="ssk-sticky ssk-left ssk-center ssk-lg"  data-text="Shared via wa2cook">
+    <a href="" class="ssk ssk-facebook"></a>
+    <a href="" class="ssk ssk-twitter"></a>
+     <a class="ssk ssk-whatsapp"></a>
+</div>
 
     <iframe id="stumble-frame" sandbox="allow-forms allow-scripts allow-popups allow-same-origin" style="border: 0;height: 100%;width: 0px;min-width: 100%;position:absolute;">Browser not compatible</iframe>
   </div>
@@ -76,8 +93,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
-  <script src="js/shuffle.min.js"></script>
+  <script src="js/social-share-kit.min.js"></script>
+  <script src="js/shuffle.js"></script>
+  <script src="js/useragent.js"></script>
+<script> 
 
+</script>
 </body>
 
 </html>
