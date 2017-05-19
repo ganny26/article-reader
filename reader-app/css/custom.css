@@ -8,6 +8,13 @@
     min-width: 100%;
     width: 0px;
 }
+
+@media screen and  (min-width: 480px){
+    .stumble-frame{
+      max-width: 100%;
+    }
+}
+
 .read-icon{
     position: relative;
 }
